@@ -27,9 +27,6 @@ function! s:RsenseCommand(args)
 endfunction
 
 function! s:RsenseClientCommand(args)
-    for i in range(0, len(a:args) - 1)
-        let a:args[i] = shellescape(a:args[i])
-    endfor
     let cmd=printf('_rsense_commandline.rb %s',join(a:args, ' '))
     ":mecho "cmd:" . cmd
     call writefile([cmd], '/tmp/rsense-vim.log')
@@ -37,20 +34,20 @@ function! s:RsenseClientCommand(args)
 endfunction
 
 function! s:RsenseCurrentProjectOption()
-    return '--project=' . expand("%:p:h")
+    return '--project="' . expand("%:p:h") . '"'
 endfunction
 
 function! s:RsenseCurrentBufferFileOption()
-    return '--file=' . expand("%:p")
+    return '--file="' . expand("%:p") . '"'
 endfunction
 
 function! s:RsenseCurrentBufferTextOption()
     let buf = getline(1, '$')
-    return '--text=' . join(buf,'\n')
+    return "--text='" . join(buf,'\n') . "'"
 endfunction
 
 function! s:RsenseCurrentLocationOption()
-    return printf('--location=%s:%s', line('.'), col('.') - (mode() == 'n' ? 0 : 1))
+    return printf('--location="%s:%s"', line('.'), col('.') - (mode() == 'n' ? 0 : 1))
 endfunction
 
 function! RSenseCompleteFunction(findstart, base)
