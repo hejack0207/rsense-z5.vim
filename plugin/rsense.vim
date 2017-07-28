@@ -43,7 +43,7 @@ endfunction
 
 function! s:RsenseCurrentBufferTextOption()
     let buf = getline(1, '$')
-    return "--text='" . join(buf,'\n') . "'"
+    return "--text=" . shellescape(join(buf,'\n'))
 endfunction
 
 function! s:RsenseCurrentLocationOption()
