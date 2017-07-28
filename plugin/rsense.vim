@@ -44,7 +44,7 @@ endfunction
 
 function! s:RsenseCurrentBufferTextOption()
     let buf = getline(1, '$')
-    return '--text=' . buf
+    return '--text=' . join(buf,'\n')
 endfunction
 
 function! s:RsenseCurrentLocationOption()
