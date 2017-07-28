@@ -30,12 +30,14 @@ function! s:RsenseClientCommand(args)
     for i in range(0, len(a:args) - 1)
         let a:args[i] = shellescape(a:args[i])
     endfor
-    return system(printf('_rsense_commandline.rb %s',
-                           \ join(a:args, ' ')))
+    let cmd=printf('_rsense_commandline.rb %s',join(a:args, ' '))
+    ":mecho "cmd:" . cmd
+    call writefile(cmd, '/tmp/rsense-vim.log')
+    return system(cmd)
 endfunction
 
 function! s:RsenseCurrentProjectOption()
-    return '--project=' . './someproject'
+    return '--project=' . expand("%:p:h")
 endfunction
 
 function! s:RsenseCurrentBufferFileOption()
