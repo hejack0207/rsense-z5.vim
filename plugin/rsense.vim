@@ -34,19 +34,17 @@ function! s:RsenseClientCommand(args)
                            \ join(a:args, ' ')))
 endfunction
 
-function! s:RsenseCurrentBufferFile()
-    let buf = getline(1, '$')
-    let file = tempname()
-    call writefile(buf, file)
-    return file
-endfunction
-
 function! s:RsenseCurrentProjectOption()
     return '--project=' . './someproject'
 endfunction
 
 function! s:RsenseCurrentBufferFileOption()
-    return '--file=' . s:RsenseCurrentBufferFile()
+    return '--file=' . expand("%:p")
+endfunction
+
+function! s:RsenseCurrentBufferTextOption()
+    let buf = getline(1, '$')
+    return '--text=' . buf
 endfunction
 
 function! s:RsenseCurrentLocationOption()
@@ -59,6 +57,7 @@ function! RSenseCompleteFunction(findstart, base)
         return match(cur_text, '[^\.:]*$')
     else
         let result = split(s:RsenseClientCommand([s:RsenseCurrentProjectOption(),s:RsenseCurrentBufferFileOption(),
+					    \ s:RsenseCurrentBufferTextOption(),
                                             \ s:RsenseCurrentLocationOption()]),
                            \ "\n")
         let completions = []
