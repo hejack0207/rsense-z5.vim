@@ -39,7 +39,7 @@ function! s:rsenseClientCommand(args)
     for i in range(0, len(a:args) - 1)
         let a:args[i] = shellescape(a:args[i])
     endfor
-    seturn s:system(printf('_rsense_commandline.rb %s',
+    return s:system(printf('_rsense_commandline.rb %s',
                            \ join(a:args, ' ')))
 endfunction
 
