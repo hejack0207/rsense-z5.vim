@@ -47,7 +47,7 @@ function! s:RsenseCurrentBufferTextOption()
 endfunction
 
 function! s:RsenseCurrentLocationOption()
-    return printf('--location="%s:%s"', line('.'), col('.') - (mode() == 'n' ? 0 : 1))
+    return printf('--location="%s:%s"', line('.')-1, col('.') - (mode() == 'n' ? 0 : 1))
 endfunction
 
 function! RSenseCompleteFunction(findstart, base)
