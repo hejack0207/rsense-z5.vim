@@ -62,7 +62,7 @@ function! RSenseCompleteFunction(findstart, base)
         let completions = []
         for item in result
 		let ary = split(item, ' ')
-		word=ary[0]
+		let word=ary[0]
 		call add(completions, word)
         endfor
         return {'words':completions,'refresh':'always'}
