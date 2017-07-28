@@ -63,14 +63,10 @@ function! RSenseCompleteFunction(findstart, base)
         let completions = []
         for item in result
 		let ary = split(item, ' ')
-		let dict = { 'word': ary[1] }
-		if len(ary) > 4
-		    let dict['menu'] = ary[3]
-		    let dict['kind'] = s:rsenseCompletionKindDictionary[ary[4]]
-		endif
-		call add(completions, dict)
+		word=ary[0]
+		call add(completions, word)
         endfor
-        return completions
+        return {'words':completions,'refresh':'always'}
     endif
 endfunction
 
