@@ -32,7 +32,7 @@ function! s:RsenseClientCommand(args)
     endfor
     let cmd=printf('_rsense_commandline.rb %s',join(a:args, ' '))
     ":mecho "cmd:" . cmd
-    call writefile(cmd, '/tmp/rsense-vim.log')
+    call writefile([cmd], '/tmp/rsense-vim.log')
     return system(cmd)
 endfunction
 
